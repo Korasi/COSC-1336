@@ -1,0 +1,16 @@
+202
+"Kennedy"
+"Lincoln"
+2.4
+306
+"Laslow"
+"Bernard"
+2.5
+393
+"Nuance"
+"Deborah"
+2.6
+395
+"Samson"
+"Michelle"
+3.1
