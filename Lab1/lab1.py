@@ -54,8 +54,8 @@ def main():
         output('Movie Name: %s' % name, outfile)
         output('Adult Tickets Sold: %i' % adult, outfile)
         output('Child Tickets Sold: %i' % children, outfile)
-        output('Gross Box Office Profit: %.2f' % gross, outfile)
-        output('Net Box Office Profit: %.2f' % net, outfile)
-        output('Amount Paid to Movie Co: %.2f' % paid, outfile)
+        output('Gross Box Office Profit: $%.2f' % gross, outfile)
+        output('Net Box Office Profit: $%.2f' % net, outfile)
+        output('Amount Paid to Movie Co: $%.2f' % paid, outfile)
 main()
           
