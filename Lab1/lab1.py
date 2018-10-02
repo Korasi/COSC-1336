@@ -37,7 +37,7 @@ def output(string, outfile): #combine print and outfile.write statments into one
 def main():
     #init variables
     adult, children, adultprice, childrenprice = 0, 0, 6, 3
-    name, gross, paid, net = 0, 0, 0, 0
+    name, gross, paid, net = '', 0, 0, 0
     
     #prompt input
     name = str(input('Please enter the name of the movie: '))
