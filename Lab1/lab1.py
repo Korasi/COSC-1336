@@ -40,9 +40,9 @@ def main():
     name, gross, paid, net = 0, 0, 0, 0
     
     #prompt input
-    name = str(input("Please enter the name of the movie: "))
-    children = validateInt("How many child tickets sold? ", 0)
-    adult = validateInt("How many adult tickets sold? ", 0)
+    name = str(input('Please enter the name of the movie: '))
+    children = validateInt('How many child tickets sold? ', 0)
+    adult = validateInt('How many adult tickets sold? ', 0)
     
     #calculate profits
     gross = children * childrenprice + adult * adultprice
@@ -51,11 +51,11 @@ def main():
 
     #print data and output data to file
     with open('Lab1_Output.txt', 'w') as outfile: # with .. as .. prevents need to closefile
-        output("Movie Name: %s" % name, outfile)
-        output("Adult Tickets Sold: %i" % adult, outfile)
-        output("Child Tickets Sold: %i" % children, outfile)
-        output("Gross Box Office Profit: %.2f" % gross, outfile)
-        output("Net Box Office Profit: %.2f" % net, outfile)
-        output("Amount Paid to Movie Co: %.2f" % paid, outfile)
+        output('Movie Name: %s' % name, outfile)
+        output('Adult Tickets Sold: %i' % adult, outfile)
+        output('Child Tickets Sold: %i' % children, outfile)
+        output('Gross Box Office Profit: %.2f' % gross, outfile)
+        output('Net Box Office Profit: %.2f' % net, outfile)
+        output('Amount Paid to Movie Co: %.2f' % paid, outfile)
 main()
           
