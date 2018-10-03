@@ -17,7 +17,7 @@ def main():
     input_file = csv.DictReader(open('playerdata.csv'))
 
     #open batting output file, or create if it doesn't exist
-    output_file = open('Batting_Output.txt', 'a')
+    output_file = open('Batting_Output.txt', 'w')
     
     output_file.write('\n%s\n' % datetime.now().strftime('%Y/%m/%d - %H:%M:%S')) #timestamp the date/time of output
     

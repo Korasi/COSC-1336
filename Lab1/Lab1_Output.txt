@@ -1,0 +1,8 @@
+
+Movie Name: Test Movie
+Adult Tickets Sold: 875
+Child Tickets Sold: 412
+Gross Box Office Profit: $6486.00
+Net Box Office Profit: $1297.20
+Amount Paid to Movie Co: $5188.80
+

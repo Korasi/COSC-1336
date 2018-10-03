@@ -1,0 +1,6 @@
+
+The total cost of house 1 over five years is $199375.00.
+The total cost of house 2 over five years is $194750.00.
+The total cost of house 3 over five years is $201750.00.
+
+House 2 would cost the least money over the five years.

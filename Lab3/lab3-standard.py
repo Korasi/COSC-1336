@@ -15,20 +15,15 @@ from datetime import datetime
 def main():
     #open input and output files
     input_file = open('playerdata.txt', 'r')
-    output_file = open('Batting_Output.txt', 'a')
+    output_file = open('Batting_Output.txt', 'w')
     
     output_file.write('\n%s\n' % datetime.now().strftime('%Y/%m/%d - %H:%M:%S')) #timestamp the date/time of output
 
     while True:
         try:
-            #Assign variables for each value in csv. [Singles, Doubles, Triples, Home Runs, At Bat]
+            #Assign variables for each value in row of txt [Singles, Doubles, Triples, Home Runs, At Bat]
             row = input_file.readline().strip('\n').split(',')
-            playernumber = row[0]
-            singles = int(row[1])
-            doubles = int(row[2])
-            triples = int(row[3])
-            homeruns = int(row[4])
-            atbat = int(row[5])
+            playernumber, singles, doubles, triples, homeruns, atbat = map(int, row)
 
             #Calculate Batting and Slugging averages
             batavg = (singles + doubles + triples + homeruns) / atbat
@@ -45,4 +40,3 @@ def main():
     output_file.close() 
 
 main()
-

@@ -17,7 +17,7 @@ def main():
     input_file = csv.DictReader(open('playerdata.csv'))
 
     #open batting output file, or create if it doesn't exist
-    output_file = open('Batting_Output.csv', 'a+')
+    output_file = open('Batting_Output.csv', 'w')
     
     output_file.write('playernumber,singles,doubles,triples,homeruns,atbat,batavg,slugavg\n') #assign header to csv columns
     

@@ -5,7 +5,6 @@
 # lab2.py
 # Prof Onabajo
 
-
 def validateData(displayText, *args): #prompt user for input, and validate if it's int or float
     # Usage: validateData(displayText[, minimumValue[, maximumValue]])
     minimum = args[0] if len(args) >= 1 and isinstance(args[0], (float, int)) else float('-INF') #-inf default, args[0] if specified
@@ -31,21 +30,35 @@ def validateInt(displayText, *args): #prompt user for input, and validate that d
             continue
         return data #is int; return data
 
+def output(string, outfile):
+    print(string)
+    outfile.write('\n%s' % string)
+
 
 def main():
     #init variables
-    initial, annual, tax, total = 0, 0, 0, 0 
+    initial, annual, tax = 0, 0, 0
     houses = []
 
     for i in range(validateInt('How many houses do you want to calculate the cost of? ', 0)):
         #set variables
-        initial = validateData('Please enter the initial cost of the house. ', 0)
-        annual = validateData('Please inter the annual fuel cost of the house. ', 0)
-        tax = validateData('Please enter the tax rate of the house. ', 0)
+        initial = validateData('\nPlease enter the initial cost of house %i. $' % (i + 1), 0)
+        annual = validateData('Please inter the annual fuel cost of house %i. $' % (i + 1), 0)
+        tax = validateData('Please enter the tax rate of the house %i. $' % (i + 1), 0)
 
         #calculate total price over five years and append to list 'houses'
         houses.append(initial + annual * 5 + initial * tax * 5)
-    #print data    
-    for i in range(len(houses)):
-        print('The total cost of house %i over five years is %.2f' % (i + 1, houses[i]))
+        
+        print('')
+        
+    #open output file
+    with open('Lab2_Output.txt', 'w') as outfile:
+        for i in range(len(houses)): #loop for each house
+            output('The total cost of house %i over five years is $%.2f.' % (i + 1, houses[i]), outfile) #print house cost to output file and console
+
+        output('\nHouse %i would cost the least money over the five years.' % (houses.index(min(houses)) + 1), outfile) #print house with best cost to file and console
+
+    print('\nOutput written to Lab2_Output.txt')
+    
 main()
+

@@ -26,7 +26,7 @@ def homerun(row):
 def main():
     #open input and output files
     input_file = open('playerdata.txt', 'r')
-    output_file = open('Batting_Output.txt', 'a')
+    output_file = open('Batting_Output.txt', 'w')
     
     output_file.write('\n%s\n' % datetime.now().strftime('%Y/%m/%d - %H:%M:%S')) #timestamp the date/time of output
 
@@ -34,7 +34,7 @@ def main():
         try:
             #Assign variables from split() txt: [Singles, Doubles, Triples, Home Runs, At Bat]
             row = input_file.readline().strip('\n').split(',')
-            #playernumber, singles, doubles, triples, homeruns, atbat = map(int, row) #this is how I'd prefer to do this...
+            #playernumber, singles, doubles, triples, homeruns, atbat = map(int, row)
             playernumber, singles, doubles, triples, homeruns, atbat = row[0], single(row), double(row), triple(row), homerun(row), int(row[5])
 
             #Calculate Batting and Slugging averages
