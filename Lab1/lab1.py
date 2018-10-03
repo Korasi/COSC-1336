@@ -51,11 +51,13 @@ def main():
 
     #print data and output data to file
     with open('Lab1_Output.txt', 'w') as outfile: # with .. as .. prevents need to closefile
-        output('Movie Name: %s' % name, outfile)
+        output('\nMovie Name: %s' % name, outfile)
         output('Adult Tickets Sold: %i' % adult, outfile)
         output('Child Tickets Sold: %i' % children, outfile)
         output('Gross Box Office Profit: $%.2f' % gross, outfile)
         output('Net Box Office Profit: $%.2f' % net, outfile)
-        output('Amount Paid to Movie Co: $%.2f' % paid, outfile)
+        output('Amount Paid to Movie Co: $%.2f\n' % paid, outfile)
+
+    print('Output written to Lab1_Output.txt')
 main()
           
