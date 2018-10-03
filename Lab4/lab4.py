@@ -30,7 +30,7 @@ def main():
         while True: #infinite loop
             try:
                 row = inputFile.readline().strip('\n').split(',') #strip newline, split by comma. [Student i, testScore]
-                student, score = row[0], int(row[1].strip(' ')) #strip space from score, convert to int
+                score = int(row[1].strip(' ')) #strip space from score, convert to int
 
                 sum_ += score #increment sum by score
                 scores.append(score) #add score to array of scores
@@ -42,7 +42,7 @@ def main():
     std = the_average_distance_of_each_data_point_from_the_mean_squared_then_square_rooted_to_remove_the_negative_sign_also_known_as_the_standard_deviation(scores, mean) #get standard deviation
 
     with open('Lab4_Output.txt', 'w') as outputFile: #open output file (with open as _ removes the need for closing statements)
-        output('%12s %12s %12s\n' % ('DEV', 'DEV1', 'SD1'), outputFile) #headers
+        output('%8s %12s %12s %12s\n' % ('Score', 'DEV', 'DEV1', 'SD1'), outputFile) #headers
         for score in scores: #loop for each score in scores array
             dev = mean - score #calculate deviation from the mean
             dev1 = dev ** 2 #calculate the square of the deviation from the mean
@@ -50,7 +50,7 @@ def main():
             sd1 = dev / std #calculate the standard score
             sd2 += sd1 #increment the sum standard scores by sd1
 
-            output('%12s %12s %12s' % (floatToString(dev), floatToString(dev1), floatToString(sd1)), outputFile) #output and right align DEV, DEV1, SD1
+            output('%8s %12s %12s %12s' % (score, floatToString(dev), floatToString(dev1), floatToString(sd1)), outputFile) #output and right align DEV, DEV1, SD1
 
         output('\nSum:%s          Mean: %s          STD: %s' % (floatToString(sum_), floatToString(mean), floatToString(std)), outputFile) #output Sum, Mean, Standard Deviation
         output('Sum of DEV1: %s          Sum of SD1: %s' % (floatToString(dev2), floatToString(sd2)), outputFile) #output Sum of deviations from the main, Sum of standard scores (should always be 0)
