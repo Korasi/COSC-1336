@@ -2,7 +2,7 @@
 # Nigel Myers
 # Fundamentals of Programming
 # ACC FALL 2018
-# lab1.py
+# lab4.py
 # Prof Onabajo
 
 #todo: comments
