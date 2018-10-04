@@ -8,7 +8,6 @@
 # Version: input .txt; output .txt
 
 #import csv and datetime modules
-import csv
 from datetime import datetime
 
 #functions to pull data from llst...
@@ -34,7 +33,11 @@ def main():
         try:
             #Assign variables from split() txt: [Singles, Doubles, Triples, Home Runs, At Bat]
             row = input_file.readline().strip('\n').split(',')
-            #playernumber, singles, doubles, triples, homeruns, atbat = map(int, row)
+
+            #preferred method of assigning variables
+            #playernumber = row[0]; row.pop(0) #assign row[0] to playernumber; remove index 0 from list row
+            #singles, doubles, triples, homeruns, atbat = map(int, row) #assign the rest of the numbers in row to variables as int
+            
             playernumber, singles, doubles, triples, homeruns, atbat = row[0], single(row), double(row), triple(row), homerun(row), int(row[5])
 
             #Calculate Batting and Slugging averages
