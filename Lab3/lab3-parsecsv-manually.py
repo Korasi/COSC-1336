@@ -17,20 +17,22 @@ def parseCSV(filename, delimiter=','):
             row = csv.readline().strip('\n').split(delimiter) #split row by delim
             if len(row) == 1 and not row[0]: #if only one attribute in row, and row[0] is an empty string, treat as end of CSV
                 return csv_data #return csv_data list 
-            row_data = {} #init empty dict
-            for iteration, item in enumerate(row): #loop through each item in the row
-                row_data[header[iteration]] = item #define header to be attribute of the row
-            csv_data.append(row_data) #add dict as attribute to list csv_data
-                
+            csv_data.append({header[iteration]:item for iteration, item in enumerate(row)}) #assign row as dict { header[item_index] : value for each item in row }
+
+def output(string, outfile=None):
+    print(string) 
+    if outfile: #output to outfile only if specified
+        outfile.write('%s\n' % string) 
 
 def main():
     players = parseCSV('playerdata.csv') #open and parse playerdata.csv
 
     #open batting output file, or create if it doesn't exist
-    with open('Batting_Output.txt', 'w') as output_file:   
+    with open('Batting_Output_Formatted.txt', 'w') as output_file:
+        output('%7s | %7s | %7s | %7s | %9s | %6s | %6s | %6s |' % ('Player', 'Singles', 'Doubles', 'Triples', 'Home Runs', 'At Bat', 'BAVG', 'SLGAVG'), output_file) #assign header to output
         for player in players: #repeat section for each row in CSV
             #Assign variables for each value in dict player from list players
-            playernumber = player['playernumber']
+            player_ = player['playernumber']
             singles = int(player['singles'])
             doubles = int(player['doubles'])
             triples = int(player['triples'])
@@ -42,10 +44,6 @@ def main():
             slugavg = (singles + doubles * 2 + triples * 3 + homeruns * 4) / atbat #multiply double/triple/hr by base value
             
             #print all data and export to outputfile
-            print('Player %s | Singles: %i | Doubles: %i | Triples: %i | Home Runs: %i | At Bat: %i | Batting Avg: %.3f | Slugging Avg: %.3f\n' % (playernumber, singles, doubles, triples, homeruns, atbat, batavg, slugavg))
-            output_file.write('Player %s | Singles: %i | Doubles: %i | Triples: %i | Home Runs: %i | At Bat: %i | Batting Avg: %.3f | Slugging Avg: %.3f\n\n' % (playernumber, singles, doubles, triples, homeruns, atbat, batavg, slugavg))
+            output('%7s | %7s | %7s | %7s | %9s | %6s | %6.3f | %6.3f |' % (player_, singles, doubles, triples, homeruns, atbat, batavg, slugavg), output_file)
 
 main()
-
-
-
