@@ -6,60 +6,73 @@
 # lab9.py
 # Prof Onabajo
 
-def getDepartment(message):
-    while True: #infinite loop
-        try:
-            department = int(confirmData(message, minimum = 1, maximum = 7, allowStop = True)) #attempt to convert float to int, value 1-7 only. -1 if terminate loop in main
-        except ValueError: #could not convert float to int, invalid
-            print('This is not a valid number. Try again.')
-        else: #successfully convert float to int, valid input; return input
-            return department
+class Department: 
+    def __init__(self, name, employees = None):
+        #init class variables
+        self.name = name
+        self.employees = [] if not employees else employees #empty list unless specified otherwise
+        self.payroll = 0
 
-def confirmData(message, minimum = 0, maximum = float('inf'), allowStop = False):
-    while True: #infinite loop
+    def calculatePayroll(self):
+        self.payroll = 0 #reset payroll to 0 prior to calculation
+        for employee in self.employees: #loop once for each employee
+            self.payroll += employee[0] * employee[1] #increment department payroll by employee wage * hours worked
+
+    def addEmployee(self, salary, hours):
+        self.employees.append([salary, hours]) #add employee to list employees
+
+def validateData(displayText, *args): #prompt user for input, and validate if it's int or float
+    # Usage: validateData(displayText[, minimumValue[, maximumValue]])
+    minimum = args[0] if len(args) >= 1 and isinstance(args[0], (float, int)) else float('-INF') #-inf default, args[0] if specified
+    maximum = args[1] if len(args) >= 2 and isinstance(args[1], (float, int)) else float('INF') #inf default, args[1] if specified
+    while True: #loop infinitely 
         try:
-            data = input(message)
-            # if allowed to terminate and input is 'stop' after stripping any periods and spaces, return -1 to terminate loop in main
-            if allowStop and data.lower().replace('.','').replace(' ','') == 'stop':
-                return -1
-            data = float(data) #convert input to float
-            if data < minimum or data > maximum: #ensure data is between minimum and maximum values (default: min 0, max infinity)
-                print('This is not a valid number. Try again.') 
-                continue #return to parent loop
-        except ValueError: #not a float
-            print('This is not a valid number. Try again.') 
-        else: #valid input; return data
+            data = input(displayText) #get user input
+            data = float(data) if '.' in data else int(data) #convert to float if decimal in string, else convert to int
+            if data < minimum or data > maximum: #if outside of range
+                print('This is an invalid number')
+                continue #return to start of loop
+        except ValueError: #if value error, alert user and loop back
+            print('This is not a number.')
+        else: #valid data; return data
             return data
+
+def validateInt(displayText, *args): #prompt user for input, and validate that datatype to be int
+    # Usage: validateInt(displayText[, minimumValue[, maximumValue]])
+    while True: #infinite loop
+        data = validateData(displayText, *args) #get input from validateData()
+        if not isinstance(data, int): #if data is not int, then alert user and re-loop
+            print('This is not an integer.')
+            continue
+        return data #is int; return data
             
 
 def main():
-    departments = [[0] for x in range(7)] #create list of 7 lists of [0, None]
-    names = ['Personnel', 'Marketing', 'Manufacturing', 'Computer Services', 'Sales', 'Accounting', 'Shipping'] #department names. department i: names[i-1]
+    departmentNames = ['Personnel', 'Marketing', 'Manufacturing', 'Computer Services', 'Sales', 'Accounting', 'Shipping']
+    departments = [Department(name) for name in departmentNames] #init list of 7 department objects
     
     while True: #infinite loop
-        department = getDepartment('What department is the employee in (type "stop" to exit)? ') #get department number or termination input
-        if department == -1:
+        department = validateInt('\nWhat department is the employee in (type "0" to exit)? ', 0, 7) #get department number or termination input
+        if department == 0:
             break #terminate loop
+        
         #get employee payroll info
-        salary = confirmData('What is the employee\'s hourly salary? ')
-        hours = confirmData('How many hours did the employee work? ')
-        #store info as third dimension in departments[department - 1]. Could calculate here to avoid extra lists
-        departments[department - 1].append([salary, hours])
+        salary = validateData('What is the employee\'s hourly salary? ', 0)
+        hours = validateData('How many hours did the employee work? ', 0)
 
-    #init gross payroll 
+        #store employee data in class department.employees
+        departments[department - 1].addEmployee(salary, hours)
+    
     grossPayroll = 0
-    
-    for i in range(7): #loop once per department
-        for x in range(1, len(departments[i])): #loop once for each list in list 'departments', starting at 1. loops 1 to length - 1
-            departments[i][0] += departments[i][x][0] * departments[i][x][1]
-            # departments[i] is the ID of the department - 1
-            # departments[i][0] is payroll for that department.
-            # department[i][x if x > 0] is an employee's data, as list [salary, hours]
-            # increment department payroll by employee[salary] * employee[hours]
-        grossPayroll += departments[i][0] # increment gross payroll by department payroll 
-        print('Gross payroll the %s department: %.2f' % (names[i].lower(), departments[i][0])) #print payroll of the department
+    print('')
 
-    print('Total gross payroll: %.2f' % grossPayroll) #print total payroll
-    
+    for department in departments: #loop for each object in list departments
+        department.calculatePayroll() #calculate payroll
+        grossPayroll += department.payroll #increment gross payroll
 
+        print('Gross payroll the %s department: %.2f' % (department.name, department.payroll)) #print payroll of the department
+
+    print('\nTotal gross payroll: %.2f' % grossPayroll) #print total payroll
+    
 main()
+
