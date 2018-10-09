@@ -36,9 +36,9 @@ def main():
     students.sort(key = lambda x: x[0]) #Sort by [_][0]
 
     with open('Combined Students.txt', 'w') as combinedStudents:
-        for student in range(len(students)): #loop once for each student array
-            for attribute in range(4): #loop once per attribute in array 
-                combinedStudents.write('%s \n' % students[student][attribute]) #add attribute
+        for student in students: #loop once for each student array
+            for attribute in student: #loop once per attribute in array 
+                combinedStudents.write('%s \n' % attribute) #add attribute
 
     print('Successfully Merged Student Data')
 
