@@ -2,7 +2,7 @@
 # Nigel Myers
 # Fundamentals of Programming
 # ACC FALL 2018
-# lab4.py
+# lab4-wth-objects.py
 # Prof Onabajo
 
 #init global vars
@@ -59,7 +59,7 @@ def main():
 
     with open('Lab4_Output.txt', 'w') as outputFile: #open output file (with open as _ removes the need for closing statements)
         output('%8s %12s %12s %12s\n' % ('Score', 'DEV', 'DEV1', 'SD1'), outputFile) #headers
-        for student in students: #loop for each score in scores array
+        for student in students: #loop for each object in students array
             output('%8s %12s %12s %12s' % (student.score, floatToString(student.dev), floatToString(student.dev1), floatToString(student.calculateSD1())), outputFile) #output and right align DEV, DEV1, SD1 (and calculate SD1)
 
         sd2 = sum(student.sd1 for student in students) #for each object in array students, sum the object's sd1 attribute
