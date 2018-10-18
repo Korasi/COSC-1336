@@ -1,0 +1,28 @@
+Restaurants that accept credit cards:
+The Ivory House
+Russo's
+Hunan
+Stringate
+Beijig
+Seafood
+Fisherman
+
+Restaurants with >= 3 stars:
+The Ivory House
+Dragon Inn
+
+Chinese Restaurants with >= 3 stars:
+Dragon Inn
+
+Restaurants with a 1-4 star rating:
+The Ivory House
+Russo's
+Hunan
+Stringate
+Beijig
+Banana Cabana
+Seafood
+El Rancho
+Fisherman
+Dragon Inn
+
