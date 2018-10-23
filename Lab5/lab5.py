@@ -1,11 +1,11 @@
 class Matrix:
     def __init__(self, matrix, name):
-        self.name = name
-        self.matrix = matrix #set matrix from object call
-        self.summedRows = [sum(row) for row in self.matrix] #calculate sum of every row
-        self.summedCols = [sum(array[i] for array in self.matrix) for i in range(len(self.matrix[0]))] #calculate sum of every column
-        self.minRows = [min(row) for row in self.matrix]
-        self.minCols = [min(array[i] for array in self.matrix) for i in range(len(self.matrix[0]))]
+        self.name = name 
+        self.matrix = matrix 
+        self.summedRows = [sum(row) for row in self.matrix] # calculate sum of every row
+        self.summedCols = [sum(array[i] for array in self.matrix) for i in range(len(self.matrix[0]))] # calculate sum of every column
+        self.minRows = [min(row) for row in self.matrix] # calculate minimum value in each row
+        self.minCols = [min(array[i] for array in self.matrix) for i in range(len(self.matrix[0]))] # calculate maximum value in each row
 
     #I am so sorry to anyone about to read this spaghetti.
     def printMatrix(self, outputFile = None):
@@ -20,37 +20,36 @@ class Matrix:
         output('', outputFile) #newline break
 
 def multiplyMatrices(matrixX, matrixY):
-    rotatedY = list(zip(*matrixY)) #rewrite list b so row[i] = column[i]
+    rotatedY = list(zip(*matrixY)) #rewrite matrixY so row[i] = column[i]
     #multiply matrices. It's a complcated process of 3 nested loops on one line.
     return [[sum(X * Y for X, Y in zip(rowX, colY)) for colY in rotatedY] for rowX in matrixX] 
 
-def loadRows(file):
-    data = [int(x) for x in file.read().strip('\n').split(' ')] #split string into list and convert to int
-    n = 3 # Elements per row
-    return [data[i:i+n] for i in range(0, len(data), n)] #split list 'data' into list of lists of length n
+def loadRows(file, n): 
+    # n = elements per row
+    data = [int(x) for x in file.read().strip('\n').split(' ')] # split string into list and convert to int
+    return [data[i:i+n] for i in range(0, len(data), n)] # split list 'data' into list of lists of length n
 
-def loadColumns(file):
-    data = [int(x) for x in file.read().strip('\n').split(' ')] #split string into list and convert to int
-    n = 7 # Elements per row
-    return [data[i::3] for i in range(3)] #split list 'data' into list of 3 lists, taking every third element
+def loadColumns(file, n):
+    # n = number of rows
+    data = [int(x) for x in file.read().strip('\n').split(' ')] # split string into list and convert to int
+    return [data[i::n] for i in range(n)] # split list 'data' into list of 3 lists, taking every nth element
 
 def output(string, file = None):
     print(string)
     if file:
         file.write('%s\n' % string)
 
-
 def main():
     x = y = z = None
 
     #Assign Matrix objects
     with open('MatrixX.txt', 'r') as inputFile:
-        x = Matrix(loadRows(inputFile), 'X')
+        x = Matrix(loadRows(inputFile, 3), 'X') # create Matrix 'X' from input file, 3 elements per row
     with open('MatrixY.txt', 'r') as inputFile:
-        y = Matrix(loadColumns(inputFile), 'Y')
+        y = Matrix(loadColumns(inputFile, 3), 'Y') # create Matrix 'Y' from input file, 3 rows
 
-    #Multiply matrixes X and Y
-    z = Matrix(multiplyMatrices(x.matrix, y.matrix), 'Z')
+    #Multiply matrixes X and Y, and set as Matrix 'Z'
+    z = Matrix(multiplyMatrices(x.matrix, y.matrix), 'Z') 
 
     # Print each matrix to output file
     with open('Lab5_Output.txt', 'w') as outputFile:
